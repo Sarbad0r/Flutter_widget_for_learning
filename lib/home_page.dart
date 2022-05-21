@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_of_flutter/widgets/badge_widget.dart';
 import 'package:widgets_of_flutter/widgets/changing_from_another_page.dart';
+import 'package:widgets_of_flutter/widgets/checkbox_widget.dart';
 import 'package:widgets_of_flutter/widgets/drop_down_menu_item.dart';
 import 'package:widgets_of_flutter/widgets/drop_down_menu_item_with_map.dart';
 import 'package:widgets_of_flutter/widgets/expansion_panel_list.dart';
+import 'package:widgets_of_flutter/widgets/grid_view_widget.dart';
 import 'package:widgets_of_flutter/widgets/hero_picture.dart';
+import 'package:widgets_of_flutter/widgets/list_view_horizontal.dart';
+import 'package:widgets_of_flutter/widgets/sliver_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -21,8 +25,6 @@ class _HomePageState extends State<HomePage> {
       numChangeFromAnotherPage = num;
     });
   }
-
-  bool check = false;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
 
@@ -145,6 +147,41 @@ class _HomePageState extends State<HomePage> {
               ///Expansion Panel List
               ///
               ExpansionPanelListSet(),
+
+              ///
+              ///
+              ///
+              const SizedBox(
+                height: 20,
+              ),
+
+              ///
+              ///
+              ///Gridview widget
+              const GridViewWidget(),
+
+              ///
+              ///
+              ///
+              const ListViewHorizontal(),
+
+              ///
+              ///
+              /// SliverAppBar very beatiful app bar
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SliverAppBarWidget()));
+                  },
+                  child: Text('Sliver AppBar Widget')),
+
+              ///
+              ///
+              ///
+              ///Checkbox widget
+              CheckBoxWidget()
             ],
           ),
         ),
