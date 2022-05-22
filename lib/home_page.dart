@@ -122,9 +122,13 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Hero(
                       tag: 'any',
-                      child: Image.asset(
-                        'assets/image1.jpg',
-                        width: MediaQuery.of(context).size.width,
+                      child: ClipOval(
+                        //we used ClipOval widget thats why our pictuer is circle
+
+                        child: Image.asset(
+                          'assets/image1.jpg',
+                          width: MediaQuery.of(context).size.width,
+                        ),
                       ),
                     ),
                     const Positioned(

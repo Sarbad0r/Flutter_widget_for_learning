@@ -21,7 +21,7 @@ class _BadgeWidgetState extends State<BadgeWidget> {
           /// instead of "fade" you can put "scale" and "slide"
           showBadge: numForBadge == 0 ? false : true,
           badgeContent: Text("$numForBadge"),
-          badgeColor: Colors.white,
+          // badgeColor: Colors.white,
           toAnimate: true,
           shape: BadgeShape.circle,
           child: const Padding(
@@ -32,6 +32,23 @@ class _BadgeWidgetState extends State<BadgeWidget> {
             ),
           ),
         ),
+        const SizedBox(
+          width: 20,
+        ),
+        ///
+        ///adb tcpip 5555
+        Badge(
+          badgeContent: Text("$numForBadge"),
+          child: const Text("Test"),
+          toAnimate: true,
+          showBadge: numForBadge == 0 ? false : true,
+          animationDuration: const Duration(milliseconds: 500),
+          animationType: BadgeAnimationType.scale,
+          badgeColor: Colors.green,
+        ),
+        ///
+        ///
+        ///
         TextButton(
             onPressed: () {
               setState(() {
@@ -41,14 +58,14 @@ class _BadgeWidgetState extends State<BadgeWidget> {
                 numForBadge--;
               });
             },
-            child: Text("-")),
+            child: const Text("-")),
         TextButton(
             onPressed: () {
               setState(() {
                 numForBadge++;
               });
             },
-            child: Text("+"))
+            child: const Text("+"))
       ],
     );
   }
