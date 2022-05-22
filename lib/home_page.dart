@@ -7,6 +7,7 @@ import 'package:widgets_of_flutter/widgets/drop_down_menu_item_with_map.dart';
 import 'package:widgets_of_flutter/widgets/expansion_panel_list.dart';
 import 'package:widgets_of_flutter/widgets/grid_view_widget.dart';
 import 'package:widgets_of_flutter/widgets/hero_picture.dart';
+import 'package:widgets_of_flutter/widgets/list_tile_widget.dart';
 import 'package:widgets_of_flutter/widgets/list_view_horizontal.dart';
 import 'package:widgets_of_flutter/widgets/sliver_app_bar.dart';
 
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var _textStyle = const TextStyle(fontSize: 20, color: Colors.redAccent);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -103,6 +105,10 @@ class _HomePageState extends State<HomePage> {
               ///
               ///Badge Widget
               ///
+              Text(
+                "Badge",
+                style: _textStyle,
+              ),
               BadgeWidget(),
 
               ///
@@ -111,6 +117,10 @@ class _HomePageState extends State<HomePage> {
               ///Hero widget for pictures
               ///just take your picture in Hero widget and name the tag
               ///and put the name of the first hero tag in another page too
+              Text(
+                "Hero widget with ClipOval",
+                style: _textStyle,
+              ),
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -150,6 +160,10 @@ class _HomePageState extends State<HomePage> {
               ///
               ///Expansion Panel List
               ///
+              Text(
+                "Expansion Panel List",
+                style: _textStyle,
+              ),
               ExpansionPanelListSet(),
 
               ///
@@ -162,30 +176,71 @@ class _HomePageState extends State<HomePage> {
               ///
               ///
               ///Gridview widget
+              Text(
+                "GridView",
+                style: _textStyle,
+              ),
               const GridViewWidget(),
 
               ///
               ///
+              const SizedBox(
+                height: 20,
+              ),
+
               ///
+              ///
+              ///
+              Text(
+                "Horizontal ListView",
+                style: _textStyle,
+              ),
               const ListViewHorizontal(),
 
               ///
               ///
               /// SliverAppBar very beatiful app bar
+              Text(
+                "Sliver App Bar",
+                style: _textStyle,
+              ),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SliverAppBarWidget()));
+                            builder: (context) => const SliverAppBarWidget()));
                   },
-                  child: Text('Sliver AppBar Widget')),
+                  child: const Text('Sliver AppBar Widget')),
 
               ///
               ///
               ///
               ///Checkbox widget
-              CheckBoxWidget()
+              Text(
+                "CheckBox",
+                style: _textStyle,
+              ),
+              CheckBoxWidget(),
+
+              ///
+              ///
+              ///
+              const SizedBox(
+                height: 20,
+              ),
+
+              ///
+              ///
+              ///
+              ///
+              Text(
+                "ListTile",
+                style: _textStyle,
+              ),
+
+              ///ListTile widget
+              const ListTileWidget()
             ],
           ),
         ),

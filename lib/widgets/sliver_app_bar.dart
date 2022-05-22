@@ -8,7 +8,7 @@ class SliverAppBarWidget extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          // backgroundColor:  Color.fromARGB(255, 13, 196, 147),
+          backgroundColor:  Color.fromARGB(255, 42, 124, 19),
           pinned: true,
           // floating: true,
           title: const Text(
