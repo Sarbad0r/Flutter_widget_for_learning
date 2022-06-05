@@ -7,6 +7,7 @@ import 'package:widgets_of_flutter/widgets/drop_down_menu_item_with_map.dart';
 import 'package:widgets_of_flutter/widgets/expansion_panel_list.dart';
 import 'package:widgets_of_flutter/widgets/grid_view_widget.dart';
 import 'package:widgets_of_flutter/widgets/hero_picture.dart';
+import 'package:widgets_of_flutter/widgets/http_post.dart';
 import 'package:widgets_of_flutter/widgets/list_tile_widget.dart';
 import 'package:widgets_of_flutter/widgets/list_view_horizontal.dart';
 import 'package:widgets_of_flutter/widgets/sliver_app_bar.dart';
@@ -27,11 +28,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  List<String> a = ['a', 'b'];
+  List<int> numbers = List.generate(2, (index) => index);
+  void setSt() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var _textStyle = const TextStyle(fontSize: 20, color: Colors.redAccent);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () {
+                setSt();
+              },
+              child: Text("Sync"))
+        ],
         elevation: 0,
         title: const Text("For learning widgets"),
       ),
@@ -44,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ///
                   ///changing from another page
-                  ///at first we created int with value of 0
+                  ///at first we created int with value of 05
                   ///and new setState func that will change our value
                   ///and we send these int and func to our child widget
                   ///and there we will change our value
@@ -76,13 +90,18 @@ class _HomePageState extends State<HomePage> {
               ///This is ScaffoldMessenger
               ///
               ElevatedButton(
+                style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith((states){
+                    return states.contains(MaterialState.pressed) ? Colors.red : null;
+                  })
+                ),
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: (const Text("You typed a ScaffoldMessenger")),
                       duration: Duration(seconds: 2),
                     ));
                   },
-                  child: const Text('ScafoldMasanger')),
+                  child: const Text('ScafoldMasanger with color after click')),
 
               ///
               ///
@@ -240,7 +259,11 @@ class _HomePageState extends State<HomePage> {
               ),
 
               ///ListTile widget
-              const ListTileWidget()
+              const ListTileWidget(),
+
+              HttpPost(
+                setSt: setSt,
+              )
             ],
           ),
         ),
