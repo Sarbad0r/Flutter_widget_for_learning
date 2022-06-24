@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:widgets_of_flutter/widgets/badge_widget.dart';
+import 'package:widgets_of_flutter/widgets/changeSameWidget.dart';
 import 'package:widgets_of_flutter/widgets/changing_from_another_page.dart';
 import 'package:widgets_of_flutter/widgets/checkbox_widget.dart';
 import 'package:widgets_of_flutter/widgets/drop_down_menu_item.dart';
@@ -10,6 +13,7 @@ import 'package:widgets_of_flutter/widgets/hero_picture.dart';
 import 'package:widgets_of_flutter/widgets/http_post.dart';
 import 'package:widgets_of_flutter/widgets/list_tile_widget.dart';
 import 'package:widgets_of_flutter/widgets/list_view_horizontal.dart';
+import 'package:widgets_of_flutter/widgets/refreshingByPoping.dart';
 import 'package:widgets_of_flutter/widgets/sliver_app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,15 +32,32 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  int firstNumber = 0;
+  int secondNumber = 0;
+
   List<String> a = ['a', 'b'];
   List<int> numbers = List.generate(2, (index) => index);
   void setSt() {
     setState(() {});
   }
 
+  void refreshFNumber(int fNumber) {
+    setState(() {
+      firstNumber = fNumber;
+    });
+  }
+
+  void refreshSNumber(int sNumber) {
+    setState(() {
+      secondNumber = sNumber;
+    });
+  }
+    var thisNumber = 1;
+
   @override
   Widget build(BuildContext context) {
     var _textStyle = const TextStyle(fontSize: 20, color: Colors.redAccent);
+  
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -90,11 +111,12 @@ class _HomePageState extends State<HomePage> {
               ///This is ScaffoldMessenger
               ///
               ElevatedButton(
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.resolveWith((states){
-                    return states.contains(MaterialState.pressed) ? Colors.red : null;
-                  })
-                ),
+                  style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.resolveWith((states) {
+                    return states.contains(MaterialState.pressed)
+                        ? Colors.red
+                        : null;
+                  })),
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: (const Text("You typed a ScaffoldMessenger")),
@@ -263,6 +285,79 @@ class _HomePageState extends State<HomePage> {
 
               HttpPost(
                 setSt: setSt,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Text("Change values with Same Widget", style: _textStyle),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => ChangeSameWidget(
+                                      checkNumber: "firstNumber",
+                                      number: firstNumber,
+                                      refreshParent: refreshFNumber,
+                                    ))));
+                      },
+                      child: Text("$firstNumber")),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangeSameWidget(
+                                      checkNumber: "secondNumber",
+                                      number: secondNumber,
+                                      refreshParent: refreshSNumber,
+                                    )));
+                      },
+                      child: Text("$secondNumber"))
+                ],
+              ),
+
+              Text(
+                "REFRSHING THIS PAGE FROM ANOTHOTHER PAGE BY POPING"
+                    .toLowerCase(),
+                style: _textStyle,
+              ),
+              //here we will await a string from another page, when anohter page pops and send some string then we will refresing this page
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async{
+
+                        int? getNumber = await Navigator.push(context, MaterialPageRoute(builder: (context) => RefreshingByPoping(number: thisNumber,)));
+
+                        if(getNumber == null)
+                        {
+                          print("null");
+                          return;
+                        }else if(getNumber.isNaN){
+                          print("error");
+                        }
+                        else
+                        {
+                          thisNumber = getNumber;
+                          setState(() {});
+                        }
+
+                      },
+                      child: Text("click"),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.amber)),
+                    ),
+                    SizedBox(width: 100,),
+                    Text("$thisNumber")
+                  ],
+                ),
               )
             ],
           ),
