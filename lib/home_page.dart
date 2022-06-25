@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:widgets_of_flutter/state_managment/get_x.dart';
 import 'package:widgets_of_flutter/widgets/badge_widget.dart';
 import 'package:widgets_of_flutter/widgets/changeSameWidget.dart';
 import 'package:widgets_of_flutter/widgets/changing_from_another_page.dart';
@@ -52,12 +54,13 @@ class _HomePageState extends State<HomePage> {
       secondNumber = sNumber;
     });
   }
-    var thisNumber = 1;
+
+  var thisNumber = 1;
 
   @override
   Widget build(BuildContext context) {
     var _textStyle = const TextStyle(fontSize: 20, color: Colors.redAccent);
-  
+    var getGetx = Get.put(GetXclass());
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -332,33 +335,64 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () async{
+                      onPressed: () async {
+                        int? getNumber = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RefreshingByPoping(
+                                      number: thisNumber,
+                                    )));
 
-                        int? getNumber = await Navigator.push(context, MaterialPageRoute(builder: (context) => RefreshingByPoping(number: thisNumber,)));
-
-                        if(getNumber == null)
-                        {
+                        if (getNumber == null) {
                           print("null");
                           return;
-                        }else if(getNumber.isNaN){
+                        } else if (getNumber.isNaN) {
                           print("error");
-                        }
-                        else
-                        {
+                        } else {
                           thisNumber = getNumber;
                           setState(() {});
                         }
-
                       },
                       child: Text("click"),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.amber)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.amber)),
                     ),
-                    SizedBox(width: 100,),
+                    SizedBox(
+                      width: 100,
+                    ),
                     Text("$thisNumber")
                   ],
                 ),
-              )
+              ),
+
+              Text(
+                "Flutter GetX is better than Provider but two off them is good",
+                style: _textStyle,
+              ),
+              Obx((() => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: getGetx.listOfIntegers.length,
+                  itemBuilder: (context, index) {
+                    return Text(getGetx.listOfIntegers[index].toString());
+                  }))),
+              Row(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        getGetx.addFiveInList();
+                      },
+                      child: Text("Click and see how getx works")),
+                  Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          getGetx.ifThereFiveItWillBeThree();
+                        },
+                        child: Text("if there are 5 it will be 3")),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
